@@ -1,4 +1,4 @@
-@extends('navbar.index')
+@extends('navbar.index_cliente')
 
 @section('title','Inicio')
 

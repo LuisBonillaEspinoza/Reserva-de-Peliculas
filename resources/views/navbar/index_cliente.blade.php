@@ -62,7 +62,7 @@
               @guest
               <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-teim">
-                  <a class="nav-link active" href="#">Iniciar Sesion/Registrarse</a>
+                  <a class="nav-link active" href="{{ route('login.index') }}">Iniciar Sesion/Registrarse</a>
                 </li>
               </ul>
               @endguest
