@@ -34,12 +34,12 @@
                   <a class="nav-link active" aria-current="page" href="{{ route('welcome.index') }}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">Estrenos</a>
+                  <a class="nav-link active" href="#">Peliculas</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active">Peliculas</a>
+                  <a class="nav-link active">Estreno</a>
                 </li>
-                <li class="nav-item dropdown">
+                {{-- <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
                     Generos
                   </a>
@@ -49,7 +49,7 @@
                       <li><a class="dropdown-item" href="#">{{ $item->nombre_categoria }}</a></li>  
                     @endforeach
                   </ul>
-                </li>
+                </li> --}}
               </ul>
               {{-- Formulario de Busqueda de Productos
               <form class="d-flex" role="search">
@@ -67,7 +67,21 @@
               </ul>
               @endguest
               @auth
-                Aca va el contenido si inicio sesion
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                      {{ auth()->user()->name_user }}
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><hr class="dropdown-divider"></li> 
+                        <li><a class="dropdown-item" href="#">Ver Datos</a></li>  
+                        <li><a class="dropdown-item" href="#">Modificar Datos</a></li>  
+                        <li><a class="dropdown-item" href="{{ route('login.destroy') }}">Cerrar Sesion</a></li>  
+                    </ul>
+                  </li>
+                </ul>
+              </div>
               @endauth
             </div>
           </div>

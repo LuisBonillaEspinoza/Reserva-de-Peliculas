@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\LoginRequest;
@@ -16,8 +17,11 @@ class LoginController extends Controller
      */
     public function index()
     {
-        if(Auth::check()){
+        if(Auth::check() && Auth::user()->rol_user == 1){
             return redirect()->route('admin.index');
+        }
+        elseif(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('welcome.index');
         }
         return view('login.login');
     }
@@ -46,7 +50,7 @@ class LoginController extends Controller
         $credenciales = $login->getCredentials();
 
         if(!Auth::validate($credenciales)){
-            return redirect()->route('login.index')->with('error','Usuario o Contraseña incorrectas');
+            return redirect()->route('login.index')->with('error','Usuario o Contraseña incorrectas')->with('datos',$credenciales['password_user']);
         }
 
         $user = Auth::getProvider()->retrieveByCredentials($credenciales);
@@ -67,27 +71,11 @@ class LoginController extends Controller
     public function autenticaruser(Request $request,$user){
         return redirect()->route('welcome.index');
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Login $login): Response
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Login $login): RedirectResponse
+    public function destroy() 
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Login $login): RedirectResponse
-    {
-        //
+        Session::flush();
+        Auth::logout();
+        return redirect()->route('login.index');
     }
 }

@@ -25,6 +25,8 @@ Route::get('/admin', function () {
 //Login
 Route::get('/login',[LoginController::class,'index'])->name('login.index');
 Route::post('/login/autenticar',[LoginController::class,'show'])->name('login.login');
+Route::get('/registro/logout',[LoginController::class,'destroy'])->name('login.destroy');
 
 //Registro
 Route::get('/registro',[RegistroController::class,'index'])->name('registro.index');
+Route::post('/registro/validacion',[RegistroController::class,'store'])->name('registro.store');

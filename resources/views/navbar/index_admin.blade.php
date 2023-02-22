@@ -65,7 +65,21 @@
               </ul>
               @endguest
               @auth
-                Aca va el contenido si inicio sesion
+              <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                      {{ auth()->user()->name_user }}
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><hr class="dropdown-divider"></li> 
+                        <li><a class="dropdown-item" href="#">Ver Datos</a></li>  
+                        <li><a class="dropdown-item" href="#">Modificar Datos</a></li>  
+                        <li><a class="dropdown-item" href="{{ route('login.destroy') }}">Cerrar Sesion</a></li>  
+                    </ul>
+                  </li>
+                </ul>
+              </div>
               @endauth
             </div>
           </div>
