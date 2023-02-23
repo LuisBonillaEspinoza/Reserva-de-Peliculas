@@ -34,7 +34,7 @@
                   <a class="nav-link active" aria-current="page" href="{{ route('welcome.index') }}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">Peliculas</a>
+                  <a class="nav-link active" href="{{ route('peliculas.index') }}">Peliculas</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active">Estreno</a>
