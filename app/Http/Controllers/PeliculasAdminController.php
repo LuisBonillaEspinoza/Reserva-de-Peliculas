@@ -65,17 +65,47 @@ class PeliculasAdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Peliculas $peliculas): Response
+    public function edit(Peliculas $peliculas)
     {
-        //
+        $categoria = Categoria::all();
+        return view('administrador.peliculas.edit',compact('peliculas','categoria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Peliculas $peliculas): RedirectResponse
+    public function update(PeliculasRequest $request,$id_pelicula)
     {
-        //
+        $categoria = Categoria::all();
+
+        $datos = $request->validated();
+
+        $peliculas = Peliculas::find($id_pelicula);
+
+        $peliculas->nombre_pelicula = $datos['nombre_pelicula'];
+        $peliculas->precio_pelicula = $datos['precio_pelicula'];
+        $peliculas->descripcion_pelicula = $datos['descripcion_pelicula'];
+        $peliculas->estado_pelicula = '1';
+        $peliculas->estreno_pelicula = '1';
+        $peliculas->categoria_pelicula = $datos['categoria_pelicula'];
+
+        if($datos['file_pelicula']){
+
+            $guardado = public_path().'/storage/'.$peliculas->imagen_pelicula;
+            unlink($guardado);
+
+            $filename = time().'_'.$datos['file_pelicula']->getClientOriginalName();
+            $filesize = $datos['file_pelicula']->getSize();
+            $datos['file_pelicula']->storeAs('public/'.$filename);
+
+            $peliculas->path_pelicula = $filesize;
+            $peliculas->imagen_pelicula = $filename;
+    
+        }
+
+        $peliculas->save();
+
+        return view('administrador.peliculas.edit',compact('peliculas','categoria'));
     }
 
     /**

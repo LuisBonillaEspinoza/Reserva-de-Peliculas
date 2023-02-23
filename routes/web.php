@@ -37,3 +37,5 @@ Route::get('/peliculas',[PeliculasAdminController::class,'index'])->name('pelicu
 Route::get('/peliculas/nueva_pelicula',[PeliculasAdminController::class,'create'])->name('peliculas.create');
 Route::post('/peliculas/nueva_pelicula/registrar',[PeliculasAdminController::class,'store'])->name('peliculas.store');
 Route::get('/peliculas/datos/{peliculas}',[PeliculasAdminController::class,'show'])->name('peliculas.show');
+Route::get('/peliculas/editar/{peliculas}',[PeliculasAdminController::class,'edit'])->name('peliculas.edit');
+Route::put('/peliculas/actualizar/{id_pelicula}',[PeliculasAdminController::class,'update'])->name('peliculas.update');

@@ -18,12 +18,17 @@
         <h4>Categoria : </h4>
         <h4>Estreno : </h4>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-2">
         <h4><strong>{{ $peliculas->nombre_pelicula }}</strong></h4>
         <h4><strong>{{ $peliculas->descripcion_pelicula }}</strong></h4>
         <h4><strong>{{ $peliculas->precio_pelicula }}</strong></h4>
         <h4><strong>{{ $peliculas->categoria->nombre_categoria }}</strong></h4>
         <h4><strong>{{ $peliculas->estreno() }}</strong></h4>
+      </div>
+
+      <div class="col-md-7">
+        <h4>Poster : </h4>
+        <img src='/storage/{{ $peliculas->imagen_pelicula }}' name="{{$peliculas->imagen_pelicula}}" style="width:300px;height:200px;">
       </div>
 
       <div class="col-md-4 m-3">
