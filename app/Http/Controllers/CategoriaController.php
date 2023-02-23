@@ -15,7 +15,7 @@ class CategoriaController extends Controller
     public function index()
     {
         $categorias = Categoria::all();
-        return view('welcome')->with('categorias',$categorias);
+        return view('user.welcome')->with('categorias',$categorias);
     }
 
     /**

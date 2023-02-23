@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Categoria;
 use App\Http\Requests\PeliculasRequest;
+//Para validar
+use Illuminate\Support\Facades\Auth;
 
 class PeliculasAdminController extends Controller
 {
@@ -16,7 +18,10 @@ class PeliculasAdminController extends Controller
      */
     public function index()
     {
-        return view('administrador.peliculas.index');
+        if(Auth::user()->rol_user == 1){
+            return view('administrador.peliculas.index');
+        }
+        return view('user.peliculas.index');
     }
 
     /**
