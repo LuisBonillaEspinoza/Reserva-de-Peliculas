@@ -36,3 +36,4 @@ Route::post('/registro/validacion',[RegistroController::class,'store'])->name('r
 Route::get('/peliculas',[PeliculasAdminController::class,'index'])->name('peliculas.index');
 Route::get('/peliculas/nueva_pelicula',[PeliculasAdminController::class,'create'])->name('peliculas.create');
 Route::post('/peliculas/nueva_pelicula/registrar',[PeliculasAdminController::class,'store'])->name('peliculas.store');
+Route::get('/peliculas/datos/{peliculas}',[PeliculasAdminController::class,'show'])->name('peliculas.show');

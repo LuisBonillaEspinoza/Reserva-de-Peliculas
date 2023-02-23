@@ -16,9 +16,7 @@ class PeliculasAdminController extends Controller
      */
     public function index()
     {
-        $peliculas = Peliculas::all();
-        $cantidad = Peliculas::count();
-        return view('administrador.peliculas.index',compact('peliculas','cantidad'));
+        return view('administrador.peliculas.index');
     }
 
     /**
@@ -59,9 +57,9 @@ class PeliculasAdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Peliculas $peliculas): Response
+    public function show(Peliculas $peliculas)
     {
-        //
+        return view('administrador.peliculas.show',compact('peliculas'));
     }
 
     /**
