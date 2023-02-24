@@ -17,7 +17,6 @@ class PeliculasUserIndex extends Component
 
     protected $queryString = [
         'busqueda' => ['except' => ''],
-        'paginacion' => ['except' => 1]
     ];
     public function render()
     {

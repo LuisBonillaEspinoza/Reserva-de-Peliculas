@@ -37,10 +37,7 @@
                   <a class="nav-link active" href="{{ route('peliculas.index') }}">Peliculas</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active">Estrenos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active">Categorias</a>
+                    <a class="nav-link active" href="{{ route('categorias.index') }}">Categorias</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active">Usuarios</a>

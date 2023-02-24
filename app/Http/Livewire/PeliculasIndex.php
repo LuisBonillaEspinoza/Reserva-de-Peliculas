@@ -16,8 +16,7 @@ class PeliculasIndex extends Component
     public $paginationTheme = 'bootstrap';
 
     protected $queryString = [
-        'busqueda' => ['except' => ''],
-        'paginacion' => ['except' => 1]
+        'busqueda' => ['except' => '']
     ];
 
     public function render()

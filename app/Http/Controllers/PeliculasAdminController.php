@@ -65,7 +65,7 @@ class PeliculasAdminController extends Controller
     public function show(Peliculas $peliculas)
     {
         if(Auth::user()->rol_user == 1){
-            return view('administrador.peliculas.index');
+            return view('administrador.peliculas.show',compact('peliculas'));
         }
         return view('user.peliculas.show',compact('peliculas'));
     }

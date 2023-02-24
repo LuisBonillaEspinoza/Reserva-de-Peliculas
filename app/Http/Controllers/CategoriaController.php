@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 //Para validar
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CategoriasRequest;
 
 class CategoriaController extends Controller
 {
@@ -26,20 +27,31 @@ class CategoriaController extends Controller
         return view('user.welcome')->with('categorias',$categorias)->with('peliculas',$peliculas)->with('peliculas_datos',$peliculas_datos);
     }
 
+    public function index_2(){
+        return view('administrador.categoria.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response
+    public function create()
     {
-        //
+        return view('administrador.categoria.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CategoriasRequest $request)
     {
-        //
+        $datos = $request->validated();
+        
+        $categorias = new Categoria;
+        $categorias->nombre_categoria = $datos['nombre_categoria'];
+
+        $categorias->save();
+
+        return redirect()->route('categorias.create')->with('success','Categoria Registrada Correctamente');
     }
 
     /**
@@ -53,17 +65,25 @@ class CategoriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categoria $categoria): Response
+    public function edit(Categoria $categorias)
     {
-        //
+        return view('administrador.categoria.edit',compact('categorias'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Categoria $categoria): RedirectResponse
+    public function update(CategoriasRequest $request, $id_categoria)
     {
-        //
+        $datos = $request->validated();
+
+        $categorias = Categoria::find($id_categoria);
+
+        $categorias->nombre_categoria = $datos['nombre_categoria'];
+
+        $categorias->save();
+
+        return redirect()->route('categorias.edit',compact('categorias'));
     }
 
     /**

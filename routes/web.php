@@ -39,3 +39,10 @@ Route::post('/peliculas/nueva_pelicula/registrar',[PeliculasAdminController::cla
 Route::get('/peliculas/datos/{peliculas}',[PeliculasAdminController::class,'show'])->name('peliculas.show');
 Route::get('/peliculas/editar/{peliculas}',[PeliculasAdminController::class,'edit'])->name('peliculas.edit');
 Route::put('/peliculas/actualizar/{id_pelicula}',[PeliculasAdminController::class,'update'])->name('peliculas.update');
+
+//Categorias
+Route::get('/categorias',[CategoriaController::class,'index_2'])->name('categorias.index');
+Route::get('/categorias/nueva_categoria',[CategoriaController::class,'create'])->name('categorias.create');
+Route::post('/categorias/nueva_categoria/registrar',[CategoriaController::class,'store'])->name('categorias.store');
+Route::get('/categorias/editar/{categorias}',[CategoriaController::class,'edit'])->name('categorias.edit');
+Route::put('/categorias/actualizar/{id_categoria}',[CategoriaController::class,'update'])->name('categorias.update');
