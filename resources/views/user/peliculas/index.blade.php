@@ -1,4 +1,4 @@
-@extends('navbar.index_admin')
+@extends('navbar.index_cliente')
 
 @section('title','Lista de Peliculas')
 
@@ -11,11 +11,6 @@
         </div>
       </div>
 
-      <div class="col-md-2">
-        <div class="py-5">
-          <a href="{{ route('peliculas.create') }}" class="btn btn-primary"><i class="fa-solid fa-plus mx-1"></i>Nueva Pelicula</a>
-        </div>
-      </div>
     </div>
 
     @livewire('peliculas-user-index')

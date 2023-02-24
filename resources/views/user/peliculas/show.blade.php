@@ -1,4 +1,4 @@
-@extends('navbar.index_admin')
+@extends('navbar.index_cliente')
 
 
 @section('title','Datos de la Pelicula')

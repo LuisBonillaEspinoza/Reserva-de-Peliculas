@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Peliculas;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+//Para validar
+use Illuminate\Support\Facades\Auth;
 
 class CategoriaController extends Controller
 {
@@ -15,7 +18,12 @@ class CategoriaController extends Controller
     public function index()
     {
         $categorias = Categoria::all();
-        return view('user.welcome')->with('categorias',$categorias);
+        $peliculas = Peliculas::where('estreno_pelicula','1')->orderBy('id')->get();
+        $peliculas_datos = Peliculas::where('estreno_pelicula','1')->orderBy('id')->take(3)->get();
+        if(Auth::user()->rol_user == 1){
+            return view('administrador.admin');
+        }
+        return view('user.welcome')->with('categorias',$categorias)->with('peliculas',$peliculas)->with('peliculas_datos',$peliculas_datos);
     }
 
     /**
