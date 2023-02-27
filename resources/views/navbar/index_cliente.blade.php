@@ -33,9 +33,17 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{{ route('welcome.index') }}">Inicio</a>
                 </li>
+                @auth
                 <li class="nav-item">
                   <a class="nav-link active" href="{{ route('peliculas.index') }}">Peliculas</a>
                 </li>
+                @endauth
+
+                @guest
+                <li class="nav-item">
+                  <a class="nav-link active" href="{{ route('peliculas.no-login') }}">Peliculas</a>
+                </li>
+                @endguest
                 {{-- <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
                     Generos

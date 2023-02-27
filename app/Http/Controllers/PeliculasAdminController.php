@@ -18,8 +18,11 @@ class PeliculasAdminController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->rol_user == 1){
+        if(Auth::check() && Auth::user()->rol_user == 1){
             return view('administrador.peliculas.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('peliculas.no-login');
         }
         return view('user.peliculas.index');
     }
@@ -29,6 +32,13 @@ class PeliculasAdminController extends Controller
      */
     public function create()
     {
+        if(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('login.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('peliculas.no-login');
+        }
+
         $categoria = Categoria::all();
         return view('administrador.peliculas.create',compact('categoria'));
     }
@@ -38,6 +48,7 @@ class PeliculasAdminController extends Controller
      */
     public function store(PeliculasRequest $request)
     {
+        
         $datos = $request->validated();
 
         $filename = time().'_'.$datos['file_pelicula']->getClientOriginalName();
@@ -64,8 +75,11 @@ class PeliculasAdminController extends Controller
      */
     public function show(Peliculas $peliculas)
     {
-        if(Auth::user()->rol_user == 1){
+        if(Auth::check() && Auth::user()->rol_user == 1){
             return view('administrador.peliculas.show',compact('peliculas'));
+        }
+        else if(!Auth::check()){
+            return redirect()->route('peliculas.no-login');
         }
         return view('user.peliculas.show',compact('peliculas'));
     }
@@ -75,6 +89,13 @@ class PeliculasAdminController extends Controller
      */
     public function edit(Peliculas $peliculas)
     {
+        if(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('login.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('peliculas.no-login');
+        }
+
         $categoria = Categoria::all();
         return view('administrador.peliculas.edit',compact('peliculas','categoria'));
     }
@@ -84,6 +105,13 @@ class PeliculasAdminController extends Controller
      */
     public function update(PeliculasRequest $request,$id_pelicula)
     {
+        if(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('login.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('login.index');
+        }
+
         $categoria = Categoria::all();
 
         $datos = $request->validated();

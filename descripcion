@@ -12,3 +12,6 @@ _Existen descuentos, esto cuando el cliente tiene suficientes puntos.
 _Los puntos, son la mitad de la factura en total. _El trabajador registra las promociones. 
 _Existen varios generos de peliculas. 
 _Un usuario puede reservas mas de una pelicula a la vez, siendo el maximo 5 peliculas por transacion.
+
+_Cerrar Sesion si se abre en otra pestaña.
+_Mostrar Inicios de Sesion.

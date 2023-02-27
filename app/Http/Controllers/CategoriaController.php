@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\User;
 use App\Models\Peliculas;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,13 +22,23 @@ class CategoriaController extends Controller
         $categorias = Categoria::all();
         $peliculas = Peliculas::where('estreno_pelicula','1')->orderBy('id')->get();
         $peliculas_datos = Peliculas::where('estreno_pelicula','1')->orderBy('id')->take(3)->get();
-        if(Auth::user()->rol_user == 1){
+        if(Auth::check() && Auth::user()->rol_user == 1){
             return view('administrador.admin');
         }
+        else if(!Auth::check()){
+            return view('user.welcome')->with('categorias',$categorias)->with('peliculas',$peliculas)->with('peliculas_datos',$peliculas_datos);
+        }
         return view('user.welcome')->with('categorias',$categorias)->with('peliculas',$peliculas)->with('peliculas_datos',$peliculas_datos);
+        
     }
 
     public function index_2(){
+        if(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('login.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('login.index');
+        }
         return view('administrador.categoria.index');
     }
 
@@ -36,6 +47,12 @@ class CategoriaController extends Controller
      */
     public function create()
     {
+        if(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('login.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('login.index');
+        }
         return view('administrador.categoria.create');
     }
 
@@ -67,6 +84,13 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categorias)
     {
+        if(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('login.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('login.index');
+        }
+
         return view('administrador.categoria.edit',compact('categorias'));
     }
 
@@ -75,6 +99,13 @@ class CategoriaController extends Controller
      */
     public function update(CategoriasRequest $request, $id_categoria)
     {
+        if(Auth::check() && Auth::user()->rol_user == 2){
+            return redirect()->route('login.index');
+        }
+        else if(!Auth::check()){
+            return redirect()->route('login.index');
+        }
+
         $datos = $request->validated();
 
         $categorias = Categoria::find($id_categoria);

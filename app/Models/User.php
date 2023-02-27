@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Sesiones;
 
 class User extends Authenticatable
 {
@@ -30,6 +31,10 @@ class User extends Authenticatable
         'email_user',
         'password_user',
     ];
+
+    public function sesiones(){
+        return $this->hasMany(Sesiones::class,'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

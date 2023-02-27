@@ -16,8 +16,6 @@
             <th scope="col">Categoria</th>
             <th scope="col">Estreno</th>
             <th scope="col">Poster</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col" class="text-center opciones">Acciones</th>
         </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -33,13 +31,7 @@
                 <td>{{ $peli->precio_pelicula }}</td>
                 <td>{{ $peli->categoria->nombre_categoria }}</td>
                 <td>{{ $peli->estreno() }}</td>
-                <td>Cantidad</td>
                 <td><img src='/storage/{{ $peli->imagen_pelicula }}' name="{{$peli->imagen_pelicula}}" style="width:90px;height:90px;"></td>
-                <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                        <a href="{{ route('peliculas.show',$peli->id) }}" class="btn btn-outline-primary">Ver Pelicula</a>
-                    </div>
-                </td>
             </tr>
             @endforeach
         </tbody>

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\LoginController;
@@ -20,7 +22,11 @@ use App\Http\Controllers\PeliculasAdminController;
 Route::get('/',[CategoriaController::class,'index'])->name('welcome.index');
 
 Route::get('/admin', function () {
-    return view('administrador.admin');
+    $sessions = DB::table('sessions')
+            ->where('user_id', auth()->id())
+            ->orderBy('last_activity', 'DESC')
+            ->get();
+    return view('administrador.admin', ['sessions' => $sessions]);
 })->name('admin.index');
 
 //Login
@@ -31,6 +37,11 @@ Route::get('/registro/logout',[LoginController::class,'destroy'])->name('login.d
 //Registro
 Route::get('/registro',[RegistroController::class,'index'])->name('registro.index');
 Route::post('/registro/validacion',[RegistroController::class,'store'])->name('registro.store');
+
+//Peliculas No Login
+Route::get('/peliculas-no-login',function(){
+    return view('index');
+})->name('peliculas.no-login');
 
 //Peliculas - Admin
 Route::get('/peliculas',[PeliculasAdminController::class,'index'])->name('peliculas.index');

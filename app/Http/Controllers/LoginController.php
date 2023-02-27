@@ -49,6 +49,8 @@ class LoginController extends Controller
     {
         $credenciales = $login->getCredentials();
 
+        $credenciales['estado_user'] = 1;
+        
         if(!Auth::validate($credenciales)){
             return redirect()->route('login.index')->with('error','Usuario o Contraseña incorrectas')->with('datos',$credenciales['password_user']);
         }
@@ -74,6 +76,8 @@ class LoginController extends Controller
 
     public function destroy() 
     {
+        // $request->session()->invalidate();
+        // $request->session()->regenerate();
         Session::flush();
         Auth::logout();
         return redirect()->route('login.index');
