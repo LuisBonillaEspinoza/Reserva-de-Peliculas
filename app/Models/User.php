@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Sesiones;
+use App\Models\Rol;
+use App\Models\EstadoUsuario;
 
 class User extends Authenticatable
 {
@@ -34,6 +36,14 @@ class User extends Authenticatable
 
     public function sesiones(){
         return $this->hasMany(Sesiones::class,'user_id');
+    }
+
+    public function roles(){
+        return $this->belongsTo(Rol::class,'rol_user');
+    }
+
+    public function estados(){
+        return $this->belongsTo(EstadoUsuario::class,'estado_user');
     }
 
     /**

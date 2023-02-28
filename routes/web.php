@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\PeliculasAdminController;
+use App\Http\Controllers\UsuariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::get('/',[CategoriaController::class,'index'])->name('welcome.index');
 Route::get('/admin', function () {
     $sessions = DB::table('sessions')
             ->where('user_id', auth()->id())
-            ->orderBy('last_activity', 'DESC')
+            ->orderBy('last_activity', 'ASC')
             ->get();
     return view('administrador.admin', ['sessions' => $sessions]);
 })->name('admin.index');
@@ -57,3 +58,13 @@ Route::get('/categorias/nueva_categoria',[CategoriaController::class,'create'])-
 Route::post('/categorias/nueva_categoria/registrar',[CategoriaController::class,'store'])->name('categorias.store');
 Route::get('/categorias/editar/{categorias}',[CategoriaController::class,'edit'])->name('categorias.edit');
 Route::put('/categorias/actualizar/{id_categoria}',[CategoriaController::class,'update'])->name('categorias.update');
+
+//Usuarios
+Route::get('/usuarios',[UsuariosController::class,'index'])->name('usuarios.index');
+Route::get('/usuarios/nuevo_usuario',[UsuariosController::class,'create'])->name('usuarios.create');
+Route::post('/usuarios/nuevo_usuario/registrar',[UsuariosController::class,'store'])->name('usuarios.store');
+Route::get('/usuarios/editar/{usuarios}/',[UsuariosController::class,'edit'])->name('usuarios.edit');
+Route::put('/usuarios/editar/actualizar/{id_usuario}',[UsuariosController::class,'update'])->name('usuarios.update');
+
+//Estado-Usuario
+Route::put('/usuarios/datos/{id_usuario}',[UsuariosController::class,'estado'])->name('usuarios.estado');

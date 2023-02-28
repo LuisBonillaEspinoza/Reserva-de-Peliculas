@@ -40,7 +40,7 @@
                     <a class="nav-link active" href="{{ route('categorias.index') }}">Categorias</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active">Usuarios</a>
+                    <a class="nav-link active" href="{{ route('usuarios.index') }}">Usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active">Ordenes</a>
