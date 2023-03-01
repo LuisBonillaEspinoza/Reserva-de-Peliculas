@@ -37,6 +37,11 @@
                 <li class="nav-item">
                   <a class="nav-link active" href="{{ route('peliculas.index') }}">Peliculas</a>
                 </li>
+                @if (Session::has('carrito'))
+                  <li class="nav-item">
+                    <a class="nav-link active" href="{{ route('peliculas.carrito_datos') }}">Carrito</a>
+                  </li>
+                @endif
                 @endauth
 
                 @guest

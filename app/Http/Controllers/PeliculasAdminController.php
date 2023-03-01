@@ -7,9 +7,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Categoria;
+use App\Models\Carrito;
 use App\Http\Requests\PeliculasRequest;
 //Para validar
 use Illuminate\Support\Facades\Auth;
+Use Session;
 
 class PeliculasAdminController extends Controller
 {
@@ -150,5 +152,30 @@ class PeliculasAdminController extends Controller
     public function destroy(Peliculas $peliculas): RedirectResponse
     {
         //
+    }
+
+    public function anadir_carrito($id_pelicula, Request $request){
+        
+        $peliculas = Peliculas::find($id_pelicula);
+        $oldCart = Session::has('carrito') ? Session::get('carrito') : null;
+
+        $carrito = new Carrito($oldCart);
+        $carrito->añadir($peliculas,$id_pelicula);
+
+        $request->session()->put('carrito',$carrito);
+        return redirect()->route('peliculas.index');
+    }
+
+    public function carrito(){
+        if(!Session::has('carrito')){
+            return redirect()->route('peliculas.carrito_datos');
+        }
+
+        $oldCart = Session::get('carrito');
+        $carrito = new Carrito($oldCart);
+        
+        $peliculas_carrito = $carrito->peliculas;
+        $precio_carrito = $carrito->total_precio;
+        return view('user.carrito.index',compact('precio_carrito','peliculas_carrito'));
     }
 }

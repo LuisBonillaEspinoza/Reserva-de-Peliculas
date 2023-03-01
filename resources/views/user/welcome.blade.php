@@ -57,8 +57,8 @@
       @foreach ($peliculas_datos as $item)
       <div class="col-lg-4">
         <img class="bd-placeholder-img rounded-circle" src ="/storage/{{ $item->imagen_pelicula }}" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-        <h2 class="fw-normal">Heading</h2>
-        <p>{{ $item->nombre_pelicula }}</p>
+        <h2 class="fw-normal">{{ $item->nombre_pelicula }}</h2>
+        <p>{{ $item->descripcion_pelicula }}</p>
         <p><a class="btn btn-secondary" href="{{ route('peliculas.show',$item->id) }}">Ver Detalles</a></p>
       </div><!-- /.col-lg-4 -->
       @endforeach

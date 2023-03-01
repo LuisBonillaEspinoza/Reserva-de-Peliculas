@@ -68,3 +68,7 @@ Route::put('/usuarios/editar/actualizar/{id_usuario}',[UsuariosController::class
 
 //Estado-Usuario
 Route::put('/usuarios/datos/{id_usuario}',[UsuariosController::class,'estado'])->name('usuarios.estado');
+
+//Carrito de Compras
+Route::get('/carrito/',[PeliculasAdminController::class,'carrito'])->name('peliculas.carrito_datos');
+Route::get('/carrito/{id_pelicula}',[PeliculasAdminController::class,'anadir_carrito'])->name('peliculas.carrito');

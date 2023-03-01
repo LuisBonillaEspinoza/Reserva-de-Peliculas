@@ -53,4 +53,5 @@
     </table>
     <hr>
     {{ $usuarios->links() }}
+    
 </div>
