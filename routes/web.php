@@ -72,3 +72,7 @@ Route::put('/usuarios/datos/{id_usuario}',[UsuariosController::class,'estado'])-
 //Carrito de Compras
 Route::get('/carrito/',[PeliculasAdminController::class,'carrito'])->name('peliculas.carrito_datos');
 Route::get('/carrito/{id_pelicula}',[PeliculasAdminController::class,'anadir_carrito'])->name('peliculas.carrito');
+
+//Pago
+Route::get('/pago',[PeliculasAdminController::class,'pago'])->name('pago.index');
+Route::post('pago',[PeliculasAdminController::class,'realizar_pago'])->name('pago.create');

@@ -46,7 +46,7 @@
                 <h4>{{ $precio_carrito }}</h4>
             </div>
             <div class="col-md-4">
-                <button class="w-100 btn btn-success btn-lg" type="submit">Pagar</button>
+                <a href="{{ route('pago.index') }}" class="w-100 btn btn-success btn-lg" type="submit">Pagar</a>
             </div>
         </div>
 

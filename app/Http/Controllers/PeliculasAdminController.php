@@ -178,4 +178,16 @@ class PeliculasAdminController extends Controller
         $precio_carrito = $carrito->total_precio;
         return view('user.carrito.index',compact('precio_carrito','peliculas_carrito'));
     }
+
+    public function pago(){
+        if(!Session::has('carrito')){
+            return redirect()->route('peliculas.carrito_datos');
+        }
+
+        $oldCart = Session::get('carrito');
+
+        $carrito = new Carrito($oldCart);
+        $total = $carrito->total_precio;
+        return view('user.pago.index',compact('total'));
+    }
 }
