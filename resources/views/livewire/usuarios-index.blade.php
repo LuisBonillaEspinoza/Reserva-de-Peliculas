@@ -35,7 +35,7 @@
                 <td>{{ $user->email_user }}</td>
                 <td>{{ $user->roles->nombre_rol }}</td>
                 <td>
-                    <form action="{{ route('usuarios.estado',$user) }}" method="POST">
+                    <form action="{{ route('usuarios.estado',$user->id) }}" method="POST">
                         @method('put')
                         @csrf
                         <button type="submit" class="btn {{ $user->estado_user==1 ? 'btn-primary' : 'btn-warning' }}">{{ $user->estados->nombre_estado }}</button>

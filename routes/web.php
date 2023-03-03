@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\PeliculasAdminController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\OrdenesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,3 +77,7 @@ Route::get('/carrito/{id_pelicula}',[PeliculasAdminController::class,'anadir_car
 //Pago
 Route::get('/pago',[PeliculasAdminController::class,'pago'])->name('pago.index');
 Route::post('/pago',[PeliculasAdminController::class,'realizar_pago'])->name('pago.create');
+
+//Ordenes
+Route::get('/ordenes',[OrdenesController::class,'index'])->name('ordenes.index');
+

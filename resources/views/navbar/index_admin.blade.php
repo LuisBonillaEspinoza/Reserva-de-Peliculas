@@ -43,7 +43,7 @@
                     <a class="nav-link active" href="{{ route('usuarios.index') }}">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active">Ordenes</a>
+                    <a class="nav-link active" href="{{ route('ordenes.index') }}">Ordenes</a>
                 </li>
               </ul>
               {{-- Formulario de Busqueda de Productos
