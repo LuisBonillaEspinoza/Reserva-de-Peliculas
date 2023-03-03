@@ -17,6 +17,9 @@ use Stripe\Charge;
 use Stripe\Customer;
 use App\Models\Ordenes;
 use App\Models\DetalleOrden;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Mail\CompraMail;
+use Illuminate\Support\Facades\Mail;
 
 class PeliculasAdminController extends Controller
 {
@@ -252,6 +255,7 @@ class PeliculasAdminController extends Controller
 
         $detalle_orden = new DetalleOrden;
         $peliculas_carrito = $carrito->peliculas;
+        $total_carrito = $carrito->total_precio;
         $ultima_orden = Ordenes::latest('id')->first();
 
         foreach($peliculas_carrito as $peliculas_carritos){
@@ -268,7 +272,35 @@ class PeliculasAdminController extends Controller
         $ultima_orden->neto_ordenes = $carrito->total_precio;
         $ultima_orden->save();
 
+        $data['email'] = Auth::user()->email_user;
+        $data['titulo'] = "Envio de Comprobante";
+        $data['total_carrito'] = $carrito->total_precio;
+        $data['peliculas_carrito'] = $carrito->peliculas;
+        $data['body'] = "Compra exitosa, puede ver los detalles en el siguiente PDF";
+
+        $pdf = Pdf::loadView('compra',$data);
+        // $pdf->stream('compra.pdf');
+
+        // Mail::to(Auth::user()->email_user)->send(new CompraMail());
+
+        Mail::send('compra',$data,function($message) use ($data,$pdf){
+            $message->to($data['email'], $data['email'])
+            ->subject($data['titulo'])
+            ->attachData($pdf->output(),"comprobante.pdf");
+        });
+
         Session::forget('carrito');
         return redirect()->route('peliculas.index');
+    }
+
+    public function pdf(){
+        $oldCart = Session::get('carrito');
+        $carrito = new Carrito($oldCart);
+
+        $peliculas_carrito = $carrito->peliculas;
+        $total_carrito = $carrito->total_precio;
+        //Generar PDF
+        $pdf = Pdf::loadView('compra',compact('peliculas_carrito','total_carrito'));
+        return $pdf->download('compra.pdf');
     }
 }
