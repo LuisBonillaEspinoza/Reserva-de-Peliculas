@@ -75,4 +75,4 @@ Route::get('/carrito/{id_pelicula}',[PeliculasAdminController::class,'anadir_car
 
 //Pago
 Route::get('/pago',[PeliculasAdminController::class,'pago'])->name('pago.index');
-Route::post('pago',[PeliculasAdminController::class,'realizar_pago'])->name('pago.create');
+Route::post('/pago',[PeliculasAdminController::class,'realizar_pago'])->name('pago.create');

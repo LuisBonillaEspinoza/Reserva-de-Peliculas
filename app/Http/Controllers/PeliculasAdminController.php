@@ -12,6 +12,9 @@ use App\Http\Requests\PeliculasRequest;
 //Para validar
 use Illuminate\Support\Facades\Auth;
 Use Session;
+use Stripe\Stripe;
+use Stripe\Charge;
+use Stripe\Customer;
 
 class PeliculasAdminController extends Controller
 {
@@ -154,6 +157,7 @@ class PeliculasAdminController extends Controller
         //
     }
 
+    //Añadir un producto al carrrito
     public function anadir_carrito($id_pelicula, Request $request){
         
         $peliculas = Peliculas::find($id_pelicula);
@@ -166,6 +170,7 @@ class PeliculasAdminController extends Controller
         return redirect()->route('peliculas.index');
     }
 
+    //Obtener la vista del carrito
     public function carrito(){
         if(!Session::has('carrito')){
             return redirect()->route('peliculas.carrito_datos');
@@ -179,6 +184,7 @@ class PeliculasAdminController extends Controller
         return view('user.carrito.index',compact('precio_carrito','peliculas_carrito'));
     }
 
+    //Obtener la vista del pago
     public function pago(){
         if(!Session::has('carrito')){
             return redirect()->route('peliculas.carrito_datos');
@@ -189,5 +195,53 @@ class PeliculasAdminController extends Controller
         $carrito = new Carrito($oldCart);
         $total = $carrito->total_precio;
         return view('user.pago.index',compact('total'));
+    }
+
+    //Realizar Pago
+    public function realizar_pago(Request $request){
+        if(!Session::has('carrito')){
+            return redirect()->route('peliculas.carrito_datos');
+        }
+
+        $oldCart = Session::get('carrito');
+        $carrito = new Carrito($oldCart);
+
+        Stripe::setApiKey('sk_test_51MhLJgFYyzBeMD9ZENn67ucu35Mu8cxvp8elDnzj9hasIVTCBcj9ikgbLs69XOyjEIHRKu3HLxgNx5fRFQID0DBw00AcEpPIR8');
+
+        $customer = Customer::create(array(
+
+            "address" => [
+                
+                    "line1" => "Virani Chowk",
+                    "postal_code" => "360001",
+                    "city" => "Rajkot",
+                    "state" => "GJ",
+                    "country" => "IN",
+
+                ],
+
+            "email" => "demo@gmail.com",
+
+            "name" => "Hardik Savani",
+
+            "source" => $request->stripeToken
+
+         ));
+
+        try{
+            Charge::create(array(
+                'amount' => $carrito->total_precio*100,
+                'currency' => 'usd',
+                'source' => $request->input('stripeToken'),
+                'description' => 'Prueba',
+                "customer" => 'cus_NSHeHgWA15sSZd'
+            ));
+        }
+        catch(\Exception $e){
+            return redirect()->route('pago.index')->with('error',$e->getMessage());
+        }
+
+        Session::forget('carrito');
+        return redirect()->route('peliculas.index');
     }
 }

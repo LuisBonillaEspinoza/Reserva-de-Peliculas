@@ -8,6 +8,9 @@
         <div class="col-md-6">
             <h1>Pago</h1>
             <h4>El total a pagar es : S/. {{ $total }}</h4>
+            <div id="charge-error" class="alert alert-danger {{ !Session::has('error') ? 'hidden' : '' }}">
+                {{ Session::get('error') }}
+            </div>
             <form action="{{ route('pago.create') }}" method="POST" id="formulario_pago">
                 @csrf
                 <div class="row">
@@ -22,8 +25,8 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="card_name">Nombre de la Tarjeta</label>
-                        <input type="text" class="form-control" id="card_name" required>
+                        <label for="card_nombre">Nombre de la Tarjeta</label>
+                        <input type="text" class="form-control" id="card_nombre" required>
                     </div>
 
                     <div class="col-md-6">

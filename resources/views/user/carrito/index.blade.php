@@ -65,3 +65,8 @@
         <p>&copy; Proyecto Peliculas 2023-2023 &middot; <a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
     </footer>
 @endsection
+
+@section('scripts')
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{{ url('js/pago.js') }}/"></script>
+@endsection
