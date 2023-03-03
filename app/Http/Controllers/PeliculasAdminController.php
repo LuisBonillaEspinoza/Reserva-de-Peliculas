@@ -15,6 +15,8 @@ Use Session;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Stripe\Customer;
+use App\Models\Ordenes;
+use App\Models\DetalleOrden;
 
 class PeliculasAdminController extends Controller
 {
@@ -240,6 +242,31 @@ class PeliculasAdminController extends Controller
         catch(\Exception $e){
             return redirect()->route('pago.index')->with('error',$e->getMessage());
         }
+
+        //Guardar pago en la base de datos
+        $ordenes = new Ordenes;
+
+        $ordenes->id_usuario = Auth::user()->id;
+
+        $ordenes->save();
+
+        $detalle_orden = new DetalleOrden;
+        $peliculas_carrito = $carrito->peliculas;
+        $ultima_orden = Ordenes::latest('id')->first();
+
+        foreach($peliculas_carrito as $peliculas_carritos){
+            $detalle_orden->nombre_detalle = $peliculas_carritos['pelicula']['nombre_pelicula'];
+            $detalle_orden->precio_detalle = $peliculas_carritos['precio'];
+            $detalle_orden->cantidad_detalle = $peliculas_carritos['cantidad'];
+            $detalle_orden->bruto_detalle = $peliculas_carritos['precio'] * $peliculas_carritos['cantidad'];
+            $detalle_orden->id_pelicula = $peliculas_carritos['pelicula']['id'];
+            $detalle_orden->id_orden = $ultima_orden['id'];
+        }
+
+        $detalle_orden->save();
+
+        $ultima_orden->neto_ordenes = $carrito->total_precio;
+        $ultima_orden->save();
 
         Session::forget('carrito');
         return redirect()->route('peliculas.index');

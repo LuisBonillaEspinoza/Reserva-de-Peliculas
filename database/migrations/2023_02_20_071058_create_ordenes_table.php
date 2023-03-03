@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ordenes', function (Blueprint $table) {
             $table->id();
-            $table->double('neto_ordenes');
+            $table->double('neto_ordenes')->nullable();
             $table->unsignedBigInteger('id_usuario');
             $table->timestamps();
 
